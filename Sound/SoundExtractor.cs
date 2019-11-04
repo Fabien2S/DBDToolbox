@@ -114,7 +114,7 @@ namespace DeadBySounds.Sound
             var files = Directory.GetFiles(_path, "*.wem", SearchOption.AllDirectories);
             foreach (var file in files)
             {
-                var destFileName = Path.GetFileName(file) ?? Path.GetRandomFileName();
+                var destFileName = Path.GetFileName(file) ?? FileHelper.RandomFileName() + ".wem";
                 var destFile = Path.Combine(destination, destFileName);
                 FileHelper.MoveSafely(file, destFile);
             }

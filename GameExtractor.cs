@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using System.IO;
-using DeadBySounds.Debug;
+using NLog;
 
 namespace DeadBySounds
 {
@@ -9,7 +9,8 @@ namespace DeadBySounds
         private const string QuickBmsPath = @"bin\quickbms\quickbms.exe";
         private const string QuickBmsScriptPath = @"bin\quickbms\unreal_tournament_4.bms";
 
-        private static readonly Logger Logger = Logger.GetLogger<GameExtractor>();
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         private readonly string _path;
 
@@ -67,7 +68,7 @@ namespace DeadBySounds
                 return false;
             }
 
-            Logger.Success("Files successfully extracted in {0}", destination);
+            Logger.Info("Files successfully extracted in {0}", destination);
             return true;
         }
 

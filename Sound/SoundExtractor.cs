@@ -2,16 +2,15 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using DeadBySounds.Debug;
+using NLog;
 
 namespace DeadBySounds.Sound
 {
     public class SoundExtractor
     {
-        private const string SoundBankFileName = "SoundbanksInfo.xml";
         private const string BnkExtrPath = @"bin\bnkextr.exe";
 
-        private static readonly Logger Logger = Logger.GetLogger<SoundExtractor>();
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         private readonly string _path;
         private readonly IReadOnlyCollection<SoundEntry> _streamedFiles;
@@ -114,7 +113,7 @@ namespace DeadBySounds.Sound
             var files = Directory.GetFiles(_path, "*.wem", SearchOption.AllDirectories);
             foreach (var file in files)
             {
-                var destFileName = Path.GetFileName(file) ?? FileHelper.RandomFileName() + ".wem";
+                var destFileName = Path.GetFileName(file) ?? throw new IOException("Invalid file name: " + file);
                 var destFile = Path.Combine(destination, destFileName);
                 FileHelper.MoveSafely(file, destFile);
             }

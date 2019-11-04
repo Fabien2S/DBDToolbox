@@ -1,11 +1,11 @@
 ﻿using System;
 using System.IO;
-using DeadBySounds.Debug;
 using DeadBySounds.Sound;
+using NLog;
 
 namespace DeadBySounds
 {
-    internal class Program
+    internal static class Program
     {
         private const string UnsupportedVersionMessage =
             "This version of Dead by Daylight may be unsupportd for now";
@@ -19,7 +19,7 @@ namespace DeadBySounds
         private const string TempDirectory = "temp";
         private const string OutputDirectory = "output";
 
-        private static readonly Logger Logger = Logger.GetLogger<Program>();
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public static void Main(string[] args)
         {
@@ -101,8 +101,7 @@ namespace DeadBySounds
             var soundProcessor = new SoundProcessor(outputDirectory);
             soundProcessor.ProcessSounds();
 
-            Logger.Success("Done.");
-
+            Logger.Info("Done.");
             Console.ReadKey();
         }
     }

@@ -1,6 +1,8 @@
+using System;
+
 namespace DeadBySounds.Sound
 {
-    public struct SoundEntry
+    public struct SoundEntry : IEquatable<SoundEntry>
     {
         public readonly string Id;
         public readonly string Path;

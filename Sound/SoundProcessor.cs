@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using System.IO;
-using DeadBySounds.Debug;
+using NLog;
 
 namespace DeadBySounds.Sound
 {
@@ -11,7 +11,7 @@ namespace DeadBySounds.Sound
 
         private const string RevorbPath = @"bin\revorb.exe";
 
-        private static readonly Logger Logger = Logger.GetLogger<SoundProcessor>();
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         private readonly string _path;
 

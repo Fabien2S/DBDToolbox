@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
-using DeadBySounds.Debug;
+using NLog;
 
 namespace DeadBySounds.Sound
 {
@@ -9,9 +9,9 @@ namespace DeadBySounds.Sound
     {
         private const string SoundBankFileName = "SoundbanksInfo.xml";
 
-        private static readonly Logger Logger = Logger.GetLogger<SoundExtractor>();
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        private XElement _soundBankInfo;
+        private readonly XElement _soundBankInfo;
 
         public SoundParser(string path)
         {

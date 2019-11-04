@@ -14,7 +14,7 @@ namespace DeadBySounds
             'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5'
         };
 
-        public static string RandomFileName(int len = 10)
+        private static string RandomFileName(int len = 10)
         {
             var index = Random.Next(Characters.Length);
 

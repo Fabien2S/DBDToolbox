@@ -16,11 +16,10 @@ namespace DeadBySounds
 
         private static string RandomFileName(int len = 10)
         {
-            var index = Random.Next(Characters.Length);
-
             var builder = new StringBuilder();
             for (var i = 0; i < len; i++)
             {
+                var index = Random.Next(Characters.Length);
                 var c = Characters[index];
                 builder.Append(c);
             }

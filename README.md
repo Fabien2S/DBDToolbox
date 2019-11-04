@@ -6,6 +6,7 @@ Use it that way:
 ```sh
 DeadBySounds.exe [Path to the game]
 ```
+*By default, [Path to the game] is equal to "C:\Program Files (x86)\Steam\steamapps\common\Dead by Daylight"*
 
 ### When it's done
 You can found all the sounds in the "output" directory.

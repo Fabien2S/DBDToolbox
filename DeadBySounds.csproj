@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Debug\Logger.cs" />
     <Compile Include="Debug\LogLevel.cs" />
+    <Compile Include="FileHelper.cs" />
     <Compile Include="GameExtractor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -18,7 +18,7 @@ namespace DeadBySounds
 
         private const string TempDirectory = "temp";
         private const string OutputDirectory = "output";
-        
+
         private static readonly Logger Logger = Logger.GetLogger<Program>();
 
         public static void Main(string[] args)
@@ -30,7 +30,7 @@ namespace DeadBySounds
                 Environment.Exit(1);
                 return;
             }
-     
+
             var extractedGamePath = Path.GetFullPath(ExtractedGameDirectory);
             if (!Directory.Exists(extractedGamePath))
             {
@@ -55,7 +55,8 @@ namespace DeadBySounds
                     Environment.Exit(1);
                     return;
                 }
-            } else
+            }
+            else
                 Logger.Debug("Using extracted game path: \"{0}\"", extractedGamePath);
 
             // PARSING SOUND BANKS FILE
@@ -88,15 +89,15 @@ namespace DeadBySounds
             // EXTRACTING SOUND FILES
             var tmpDirectory = Path.GetFullPath(TempDirectory);
             var outputDirectory = Path.GetFullPath(OutputDirectory);
-            
+
             Directory.CreateDirectory(tmpDirectory);
             Directory.CreateDirectory(outputDirectory);
-            
+
             var soundExtractor = new SoundExtractor(soundsPath, streamedSounds, soundBanks);
             soundExtractor.ExtractStreamedFiles(outputDirectory);
             soundExtractor.ExtractSoundBanks(tmpDirectory, outputDirectory);
             soundExtractor.ExtractLeftOverSounds(outputDirectory);
-            
+
             var soundProcessor = new SoundProcessor(outputDirectory);
             soundProcessor.ProcessSounds();
 

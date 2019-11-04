@@ -39,7 +39,7 @@ namespace DeadBySounds.Sound
                     var destFileInfo = new FileInfo(destFileName);
                     destFileInfo.Directory?.Create();
 
-                    File.Move(sourceFileName, destFileName);
+                    FileHelper.MoveSafely(sourceFileName, destFileName);
                 }
                 catch (IOException e)
                 {
@@ -89,7 +89,7 @@ namespace DeadBySounds.Sound
                 foreach (var entry in soundBank.Entries)
                 {
                     i++;
-                    
+
                     var sourceFileName = Path.Combine(outputDirectory,
                         i.ToString("D4", CultureInfo.InvariantCulture) + ".wem");
                     var destFileName = Path.Combine(destination, entry.Path);
@@ -99,7 +99,7 @@ namespace DeadBySounds.Sound
                         var destFileInfo = new FileInfo(destFileName);
                         destFileInfo.Directory?.Create();
 
-                        File.Move(sourceFileName, destFileName);
+                        FileHelper.MoveSafely(sourceFileName, destFileName);
                     }
                     catch (IOException e)
                     {
@@ -115,7 +115,8 @@ namespace DeadBySounds.Sound
             foreach (var file in files)
             {
                 var destFileName = Path.GetFileName(file) ?? Path.GetRandomFileName();
-                File.Move(file, Path.Combine(destination, destFileName));
+                var destFile = Path.Combine(destination, destFileName);
+                FileHelper.MoveSafely(file, destFile);
             }
         }
     }

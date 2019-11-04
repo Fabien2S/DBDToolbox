@@ -75,7 +75,7 @@ namespace DeadBySounds.Sound
                     Logger.Error("Unable to convert the sound");
                     continue;
                 }
-                
+
                 process.BeginOutputReadLine();
                 process.OutputDataReceived += OnRevorbMessage;
 
@@ -86,8 +86,8 @@ namespace DeadBySounds.Sound
 
                 if (process.ExitCode != 0)
                     Logger.Error("Unable to convert the sound (exit code: {0})", process.ExitCode);
-                
-                File.Delete(wemFile);
+
+                FileHelper.DeleteSafely(wemFile);
             }
         }
 

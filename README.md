@@ -15,7 +15,7 @@ When not specified, the output path is "./output" (a "output" folder is created 
 
 The currently supported assets type are:
 
-- Localization files (.locres -> .txt)
+- Localization files (.locres -> .locres (text files))
 - Sound files (.bnk/.wem -> .ogg)
 
 ## Dependencies

@@ -25,7 +25,7 @@ namespace DBDToolbox.Sounds
 
         public void Process(AssetPath path, IAsset asset)
         {
-            var fileName = Path.GetFileName(path);
+            var fileName = Path.GetFileNameWithoutExtension(path);
             var directoryName = Path.GetDirectoryName(path);
 
             var infoFilePath = Path.Join(directoryName, fileName + SoundInfoFileExtension);
@@ -41,22 +41,22 @@ namespace DBDToolbox.Sounds
                 Logger.LogError("Missing bank info for {0}", path);
                 return;
             }
-            
+
             var files = Directory.EnumerateFiles(path, SoundFileSearchPattern, SearchOption.AllDirectories);
             foreach (var wemFile in files)
             {
                 var tempPath = Path.ChangeExtension(wemFile, "temp");
                 var oggPath = Path.ChangeExtension(wemFile, "ogg");
-
+            
                 if(!RunProcess("ww2ogg.exe", $"\"{wemFile}\" --pcb \"packed_codebooks_aoTuV_603.bin\" -o \"{tempPath}\""))
                     continue;
                 File.Delete(wemFile);
-
+            
                 if(!RunProcess("ReVorb.exe", $"\"{tempPath}\" \"{oggPath}\""))
                     continue;
                 File.Delete(tempPath);
-
-                var fileId = Path.GetFileName(oggPath);
+            
+                var fileId = Path.GetFileNameWithoutExtension(oggPath);
                 var fileInfoElement = soundBankElement.SelectSingleNode("//File[@Id=" + fileId + "]");
                 if (fileInfoElement == null)
                 {
@@ -65,13 +65,17 @@ namespace DBDToolbox.Sounds
                 }
                 
                 var fileNameElement = fileInfoElement["ShortName"];
-                if(fileNameElement?.Value == null)
+                if(fileNameElement?.InnerText == null)
                 {
                     Logger.LogError("Missing file path info for {0}", path);
                     continue;
                 }
 
-                File.Move(oggPath, fileNameElement.Value);
+                var remapPath = Path.Join(path, fileNameElement.InnerText);
+                var remapDirectory = Path.GetDirectoryName(remapPath);
+                if (remapDirectory != null)
+                    Directory.CreateDirectory(remapDirectory);
+                File.Move(oggPath, remapPath);
             }
         }
 

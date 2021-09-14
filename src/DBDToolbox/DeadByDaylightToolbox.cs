@@ -93,13 +93,19 @@ namespace DBDToolbox
                     Directory.CreateDirectory(assetDirectory);
 
                 asset.Extract(assetPath);
-
+            }
+            
+            Logger.LogInformation("Processing {0} assets", assets.Count);
+            foreach (var asset in assets)
+            {
+                var assetPath = new AssetPath(_outputPath, asset.Path);
+                
                 foreach (var postProcessor in _processors)
                 {
-                    if (!postProcessor.CanProcess(asset.Path))
+                    if (!postProcessor.CanProcess(assetPath))
                         continue;
 
-                    Logger.LogInformation("Processing asset \"{0}\" with {1}", asset.Path, postProcessor);
+                    Logger.LogInformation("Processing asset \"{0}\" with {1}", assetPath, postProcessor);
                     postProcessor.Process(assetPath, asset);
                 }
             }

@@ -15,10 +15,4 @@
         <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0"/>
     </ItemGroup>
 
-    <ItemGroup>
-        <Content Include="../../lib/ww2ogg/ww2ogg.exe" CopyToOutputDirectory="Always"/>
-        <Content Include="../../lib/ww2ogg/packed_codebooks_aoTuV_603.bin" CopyToOutputDirectory="Always"/>
-        <Content Include="../../lib/ReVorb.exe" CopyToOutputDirectory="Always"/>
-    </ItemGroup>
-
 </Project>

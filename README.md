@@ -1,13 +1,26 @@
-# DeadBySounds
-A sound extractor for Dead by Daylight
+# DBDToolbox
 
-### How
-Use it that way:
-```sh
-DeadBySounds.exe [Path to the game]
+_DBDToolbox_ is an application that can extract multiple assets from the game _Dead by Daylight_
+
+## How to use
+
 ```
-*By default, [Path to the game] is equal to "C:\Program Files (x86)\Steam\steamapps\common\Dead by Daylight"*
+DeadBySounds.exe [game path] [output path]
+```
 
-### When it's done
-You can found all the sounds in the "output" directory.
-The unnamed ones (whether it's a duplicate or the soft can't figure out the name) will be randomly named and placed at the root of this folder
+When not specified, the game path is "C:/Program Files (x86)/Steam/steamapps/common/Dead by Daylight/DeadByDaylight/Content/Paks"
+When not specified, the output path is "./output" (a "output" folder is created in the current directory)
+
+## Supported assets
+
+The currently supported assets type are:
+
+- Localization files (.locres -> .txt)
+- Sound files (.bnk/.wem -> .ogg)
+
+## Dependencies
+
+- [UETools](https://github.com/UETools/UETools) to extract assets from Dead by Daylight's pak files
+- [www2ogg](https://github.com/hcs64/ww2ogg) to convert wem files to ogg
+- [ReVorb](https://github.com/ItsBranK/ReVorb) to make the ogg thing playable in VLC
+

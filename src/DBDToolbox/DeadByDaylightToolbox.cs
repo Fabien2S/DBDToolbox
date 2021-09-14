@@ -106,7 +106,7 @@ namespace DBDToolbox
                         continue;
 
                     Logger.LogInformation("Processing asset \"{0}\" with {1}", assetPath, postProcessor);
-                    postProcessor.Process(assetPath, asset);
+                    postProcessor.Process(_outputPath, assetPath, asset);
                 }
             }
 

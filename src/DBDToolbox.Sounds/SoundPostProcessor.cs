@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Xml;
 using DBDToolbox.Assets;
+using DBDToolbox.IO;
 using DBDToolbox.Logging;
 using DBDToolbox.Postprocessors;
 using DBDToolbox.Sounds.Assets;
@@ -23,7 +24,7 @@ namespace DBDToolbox.Sounds
             return path.EndsWith(SoundBankExtension);
         }
 
-        public void Process(AssetPath path, IAsset asset)
+        public void Process(string outputPath, AssetPath path, IAsset asset)
         {
             var fileName = Path.GetFileNameWithoutExtension(path);
             var directoryName = Path.GetDirectoryName(path);
@@ -50,11 +51,11 @@ namespace DBDToolbox.Sounds
             
                 if(!RunProcess("ww2ogg.exe", $"\"{wemFile}\" --pcb \"packed_codebooks_aoTuV_603.bin\" -o \"{tempPath}\""))
                     continue;
-                File.Delete(wemFile);
+                FileHelper.DeleteSafely(wemFile);
             
                 if(!RunProcess("ReVorb.exe", $"\"{tempPath}\" \"{oggPath}\""))
                     continue;
-                File.Delete(tempPath);
+                FileHelper.DeleteSafely(tempPath);
             
                 var fileId = Path.GetFileNameWithoutExtension(oggPath);
                 var fileInfoElement = soundBankElement.SelectSingleNode("//File[@Id=" + fileId + "]");
@@ -71,11 +72,11 @@ namespace DBDToolbox.Sounds
                     continue;
                 }
 
-                var remapPath = Path.Join(path, fileNameElement.InnerText);
+                var remapPath = Path.Join(outputPath, "DeadByDaylight/Content/SFX", fileNameElement.InnerText);
                 var remapDirectory = Path.GetDirectoryName(remapPath);
                 if (remapDirectory != null)
                     Directory.CreateDirectory(remapDirectory);
-                File.Move(oggPath, remapPath);
+                FileHelper.MoveSafely(oggPath, remapPath);
             }
         }
 

@@ -8,8 +8,8 @@ _DBDToolbox_ is an application that can extract multiple assets from the game _D
 DBDToolbox.Runtime.exe [game path] [output path]
 ```
 
-When not specified, the game path is "C:/Program Files (x86)/Steam/steamapps/common/Dead by Daylight/DeadByDaylight/Content/Paks"
-When not specified, the output path is "./output" (a "output" folder is created in the current directory)
+- When not specified, the game path is `C:/Program Files (x86)/Steam/steamapps/common/Dead by Daylight/DeadByDaylight/Content/Paks`
+- When not specified, the output path is `./output` (a "output" folder is created in the current directory)
 
 ## Supported assets
 

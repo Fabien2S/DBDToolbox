@@ -5,7 +5,7 @@ _DBDToolbox_ is an application that can extract multiple assets from the game _D
 ## How to use
 
 ```
-DeadBySounds.exe [game path] [output path]
+DBDToolbox.Runtime.exe [game path] [output path]
 ```
 
 When not specified, the game path is "C:/Program Files (x86)/Steam/steamapps/common/Dead by Daylight/DeadByDaylight/Content/Paks"

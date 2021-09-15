@@ -72,7 +72,10 @@ namespace DBDToolbox.Sounds
                     continue;
                 }
 
-                var remapPath = Path.Join(outputPath, "DeadByDaylight/Content/SFX", fileNameElement.InnerText);
+                var remapPath = Path.ChangeExtension(
+                    Path.Join(outputPath, "DeadByDaylight/Content/SFX", fileNameElement.InnerText),
+                    "ogg"
+                );
                 var remapDirectory = Path.GetDirectoryName(remapPath);
                 if (remapDirectory != null)
                     Directory.CreateDirectory(remapDirectory);

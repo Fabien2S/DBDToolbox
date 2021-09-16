@@ -15,6 +15,7 @@ namespace DBDToolbox.Sounds
 
         private const string SoundPartialPath = "WwiseAudio";
 
+        private const string SoundFileExtension = ".wem";
         private const string SoundBankExtension = ".bnk";
         private const string SoundBankInfoExtension = ".xml";
 
@@ -22,6 +23,7 @@ namespace DBDToolbox.Sounds
         {
             return path.Contains(SoundPartialPath) &&
                    (
+                       path.EndsWith(SoundFileExtension) ||
                        path.EndsWith(SoundBankExtension) ||
                        path.EndsWith(SoundBankInfoExtension)
                    );
@@ -34,6 +36,12 @@ namespace DBDToolbox.Sounds
                 var asset = new SoundBankAsset(path);
                 asset.Serialize(archive);
                 return asset;
+            }
+
+            if (path.EndsWith(SoundFileExtension))
+            {
+                var content = BinaryAsset.ReadArchive(archive);
+                return new SoundFileAsset(path, content);
             }
 
             if (path.EndsWith(SoundBankInfoExtension))

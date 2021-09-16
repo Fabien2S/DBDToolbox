@@ -15,6 +15,7 @@ namespace DBDToolbox.Sounds
         private static readonly ILogger<SoundPostProcessor> Logger = LogManager.Create<SoundPostProcessor>();
 
         private const string SoundBankExtension = ".bnk";
+        
         private const string SoundInfoFileExtension = ".xml";
 
         private const string SoundFileSearchPattern = "*.wem";
@@ -43,12 +44,23 @@ namespace DBDToolbox.Sounds
                 return;
             }
 
+            RemapFiles(outputPath, path, soundBankElement, false);
+            RemapFiles(outputPath, Path.Join(Path.GetDirectoryName(path), "_StreamedFiles"), soundBankElement, true);
+        }
+
+        private static void RemapFiles(string outputPath, string path, XmlNode soundBankElement, bool processWhenMappedOnly)
+        {
             var files = Directory.EnumerateFiles(path, SoundFileSearchPattern, SearchOption.AllDirectories);
             foreach (var wemFile in files)
             {
                 var tempPath = Path.ChangeExtension(wemFile, "temp");
                 var oggPath = Path.ChangeExtension(wemFile, "ogg");
             
+                var fileId = Path.GetFileNameWithoutExtension(oggPath);
+                var fileInfoElement = soundBankElement.SelectSingleNode("//File[@Id=" + fileId + "]");
+                if (fileInfoElement == null && processWhenMappedOnly)
+                    continue;
+
                 if(!RunProcess("ww2ogg.exe", $"\"{wemFile}\" --pcb \"packed_codebooks_aoTuV_603.bin\" -o \"{tempPath}\""))
                     continue;
                 FileHelper.DeleteSafely(wemFile);
@@ -57,8 +69,6 @@ namespace DBDToolbox.Sounds
                     continue;
                 FileHelper.DeleteSafely(tempPath);
             
-                var fileId = Path.GetFileNameWithoutExtension(oggPath);
-                var fileInfoElement = soundBankElement.SelectSingleNode("//File[@Id=" + fileId + "]");
                 if (fileInfoElement == null)
                 {
                     Logger.LogError("Missing file info for {0}", path);
@@ -85,7 +95,7 @@ namespace DBDToolbox.Sounds
 
         private static bool RunProcess(string fileName, string arguments)
         {
-            var process = System.Diagnostics.Process.Start(new ProcessStartInfo
+            using var process = System.Diagnostics.Process.Start(new ProcessStartInfo
             {
                 FileName = fileName,
                 Arguments = arguments,

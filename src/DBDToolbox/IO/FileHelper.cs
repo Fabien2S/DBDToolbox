@@ -21,12 +21,15 @@ namespace DBDToolbox.IO
 
             if (Directory.Exists(destinationFolder))
             {
+                var fileName = Path.GetFileNameWithoutExtension(file);
                 var extension = Path.GetExtension(destination);
+
+                var id = 0;
                 while (File.Exists(destination))
                 {
-                    var randomFileName = Path.GetRandomFileName();
-                    var possibleFileName = Path.ChangeExtension(randomFileName, extension);
-                    destination = Path.Combine(destinationFolder, possibleFileName);
+                    var uniqueFileName = fileName + "_" + id + extension;
+                    destination = Path.Combine(destinationFolder, uniqueFileName);
+                    id++;
                 }
             }
             else

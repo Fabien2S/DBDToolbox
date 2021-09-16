@@ -9,9 +9,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="../../lib/ww2ogg/ww2ogg.exe" CopyToOutputDirectory="Always"/>
-        <Content Include="../../lib/ww2ogg/packed_codebooks_aoTuV_603.bin" CopyToOutputDirectory="Always"/>
-        <Content Include="../../lib/ReVorb.exe" CopyToOutputDirectory="Always"/>
+        <Content Include="../../lib/ww2ogg/ww2ogg.exe" CopyToOutputDirectory="Always" />
+        <Content Include="../../lib/ww2ogg/packed_codebooks_aoTuV_603.bin" CopyToOutputDirectory="Always" />
+        <Content Include="../../lib/ReVorb.exe" CopyToOutputDirectory="Always" />
     </ItemGroup>
 
 </Project>

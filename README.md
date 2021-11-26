@@ -4,6 +4,8 @@ _DBDToolbox_ is an application that can extract multiple assets from the game _D
 
 ## How to use
 
+You can download the latest version at here: [DBDToolbox.zip](https://github.com/Fabien2S/DBDToolbox/releases/latest/download/DBDToolbox.zip)
+
 ```
 DBDToolbox.Runtime.exe [game path] [output path]
 ```

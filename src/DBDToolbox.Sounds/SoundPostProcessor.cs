@@ -33,14 +33,14 @@ namespace DBDToolbox.Sounds
             var infoFilePath = Path.Join(directoryName, fileName + SoundInfoFileExtension);
             var infoDocument = new XmlDocument();
 
-            Logger.LogDebug("Loading bank info from \"{0}\"", infoDocument);
+            Logger.LogDebug("Loading bank info from \"{document}\"", infoDocument);
             infoDocument.Load(infoFilePath);
 
             var soundBankAsset = (SoundBankAsset)asset;
             var soundBankElement = infoDocument.SelectSingleNode("//SoundBank[@Id=" + soundBankAsset.BankId + "]");
             if (soundBankElement == null)
             {
-                Logger.LogError("Missing bank info for {0}", path);
+                Logger.LogError("Missing bank info for {path}", path);
                 return;
             }
 
@@ -71,14 +71,14 @@ namespace DBDToolbox.Sounds
             
                 if (fileInfoElement == null)
                 {
-                    Logger.LogError("Missing file info for {0}", path);
+                    Logger.LogError("Missing file info for {path}", path);
                     continue;
                 }
                 
                 var fileNameElement = fileInfoElement["ShortName"];
                 if(fileNameElement?.InnerText == null)
                 {
-                    Logger.LogError("Missing file path info for {0}", path);
+                    Logger.LogError("Missing file path info for {path}", path);
                     continue;
                 }
 
@@ -107,7 +107,7 @@ namespace DBDToolbox.Sounds
 
             if (process == null)
             {
-                Logger.LogError("Failed to run {0}", fileName);
+                Logger.LogError("Failed to start {path} (arguments: {args})", fileName, arguments);
                 return false;
             }
 
@@ -120,14 +120,14 @@ namespace DBDToolbox.Sounds
             if (process.ExitCode == 0)
                 return true;
 
-            Logger.LogError("Failed to run {0} (exit code: {1})", fileName, process.ExitCode);
+            Logger.LogError("Failed to run {path} (arguments: {args}, exit code: {exitCode})", fileName, arguments, process.ExitCode);
             return false;
         }
 
         private static void HandleProcessOutput(object sender, DataReceivedEventArgs e)
         {
             var name = ((Process)sender).StartInfo.FileName;
-            Logger.LogDebug("[{0}] {1}", name, e.Data);
+            Logger.LogDebug("[{process}] {log}", name, e.Data);
         }
     }
 }

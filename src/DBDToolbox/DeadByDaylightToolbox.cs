@@ -57,7 +57,7 @@ namespace DBDToolbox
             EnsureValid();
             var assets = new List<IAsset>();
 
-            Logger.LogInformation("Reading assets from path \"{0}\"", _inputPath);
+            Logger.LogInformation("Reading assets from path \"{path}\"", _inputPath);
             foreach (var (path, entry) in _vfs.AbsoluteIndex)
             {
                 var assetPath = new AssetPath(path);
@@ -67,11 +67,11 @@ namespace DBDToolbox
                 {
                     if (!extractor.CanExtract(assetPath)) continue;
 
-                    Logger.LogDebug("Reading asset \"{0}\"", path);
+                    Logger.LogDebug("Reading asset \"{path}\"", path);
                     archive ??= entry.Read();
                     archive.Version = UE4Version.VER_UE4_AUTOMATIC_VERSION;
 
-                    Logger.LogInformation("Extracting asset \"{0}\" with {1}", path, extractor);
+                    Logger.LogInformation("Extracting asset \"{path}\" with {extractor}", path, extractor);
                     var asset = extractor.Extract(assetPath, entry, archive);
                     if (asset != null)
                         assets.Add(asset);
@@ -80,10 +80,10 @@ namespace DBDToolbox
                 if (archive != null)
                     archive.Dispose();
                 else
-                    Logger.LogDebug("No extractor found for asset \"{0}\"", path);
+                    Logger.LogDebug("No extractor found for asset \"{path}\"", path);
             }
 
-            Logger.LogInformation("Extracting assets to path \"{0}\"", _outputPath);
+            Logger.LogInformation("Extracting assets to path \"{path}\"", _outputPath);
             foreach (var asset in assets)
             {
                 var assetPath = new AssetPath(_outputPath, asset.Path);
@@ -95,7 +95,7 @@ namespace DBDToolbox
                 asset.Extract(assetPath);
             }
             
-            Logger.LogInformation("Processing {0} assets", assets.Count);
+            Logger.LogInformation("Processing {count} assets", assets.Count);
             foreach (var asset in assets)
             {
                 var assetPath = new AssetPath(_outputPath, asset.Path);
@@ -105,12 +105,12 @@ namespace DBDToolbox
                     if (!postProcessor.CanProcess(assetPath))
                         continue;
 
-                    Logger.LogInformation("Processing asset \"{0}\" with {1}", assetPath, postProcessor);
+                    Logger.LogInformation("Processing asset \"{path}\" with {postProcessor}", assetPath, postProcessor);
                     postProcessor.Process(_outputPath, assetPath, asset);
                 }
             }
 
-            Logger.LogInformation("Extracted {0} assets", assets.Count);
+            Logger.LogInformation("Extracted {count} assets", assets.Count);
         }
 
         public void Dispose()

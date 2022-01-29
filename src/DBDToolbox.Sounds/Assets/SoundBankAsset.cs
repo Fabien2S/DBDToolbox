@@ -43,17 +43,17 @@ namespace DBDToolbox.Sounds.Assets
 
                 if (TryCreateSection(magicId, offset, length, out var section))
                 {
-                    Logger.LogDebug("Reading section {0} from {1}", section, archive);
+                    Logger.LogDebug("Reading section {section} from {archive}", section, archive);
                     section.Serialize(archive);
 
                     var left = offset + length - archive.Tell();
                     switch (left)
                     {
                         case < 0:
-                            Logger.LogError("Section {0} read too many bytes", section);
+                            Logger.LogError("Section {section} read too many bytes", section);
                             break;
                         case > 0:
-                            Logger.LogDebug("Section {0} left some bytes unread", section);
+                            Logger.LogDebug("Section {section} left some bytes unread", section);
                             archive.Skip(left);
                             break;
                     }
@@ -63,7 +63,7 @@ namespace DBDToolbox.Sounds.Assets
                 else
                 {
                     // Unable to read asset
-                    Logger.LogWarning("Failed to read section at offset {0} of length {1} from {2}",
+                    Logger.LogDebug("Failed to read section at offset {offset} of length {length} from {archive}",
                         offset, length, archive
                     );
                     archive.Skip(length);

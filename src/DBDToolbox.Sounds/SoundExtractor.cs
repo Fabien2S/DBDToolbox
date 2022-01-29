@@ -18,6 +18,7 @@ namespace DBDToolbox.Sounds
         private const string SoundFileExtension = ".wem";
         private const string SoundBankExtension = ".bnk";
         private const string SoundBankInfoExtension = ".xml";
+        private const string SoundBankInfoAltExtension = ".json";
 
         public bool CanExtract(AssetPath path)
         {
@@ -25,7 +26,8 @@ namespace DBDToolbox.Sounds
                    (
                        path.EndsWith(SoundFileExtension) ||
                        path.EndsWith(SoundBankExtension) ||
-                       path.EndsWith(SoundBankInfoExtension)
+                       path.EndsWith(SoundBankInfoExtension) ||
+                       path.EndsWith(SoundBankInfoAltExtension)
                    );
         }
 
@@ -50,7 +52,13 @@ namespace DBDToolbox.Sounds
                 return new SoundBankInfoAsset(path, content);
             }
 
-            Logger.LogError("Failed to extract sound asset \"{0}\"", path);
+            if (path.EndsWith(SoundBankInfoAltExtension))
+            {
+                var content = TextAsset.ReadArchive(archive);
+                return new SoundBankInfoAsset(path, content);
+            }
+
+            Logger.LogError("Failed to extract sound asset \"{path}\"", path);
             return null;
         }
     }

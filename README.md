@@ -1,16 +1,14 @@
 # DBDToolbox
 
-_DBDToolbox_ is an application that can extract assets from the game _Dead by Daylight_. It _might_ also works for other games.
+_DBDToolbox_ is an application that can extract assets from the game _Dead by Daylight_.  
+It _might_ also works for other games.
 
 ## Warning
-
-The recent PTB (5.7.0) is currently unsupported because of the Unreal Engine update (from 4.25 to 4.27).
+The recent PTB (5.7.0) is currently unsupported because of the Unreal Engine update (from 4.25 to 4.27).  
 This is a [known issue](/../../issues/9) and I will try to fix it in my free time.
 
 ## How to use
-
 You can download the latest version at here: [DBDToolbox.zip](https://github.com/Fabien2S/DBDToolbox/releases/latest/download/DBDToolbox.zip)
-
 ```
 DBDToolbox.Runtime.exe [game path] [output path]
 ```
@@ -22,9 +20,6 @@ DBDToolbox.Runtime.exe [game path] [output path]
   - When unspecified, value is `./output/` (a "output" folder is created in the current directory)
 
 ## Supported assets
-
-The extractor currently supports:
-
 - Localization files (.locres -> .locres (text files))
 - Sound files (.bnk/.wem -> .ogg)
 
